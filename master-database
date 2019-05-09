@@ -1,0 +1,39 @@
+<?php
+require_once('login1.php');
+$connection = new mysqli($hn, $un, $ph, 'final');
+if($connection -> connect_error) die($conn->connect_error);
+
+$query = "CREATE TABLE userTb (frstn VARCHAR(32), lstn VARCHAR(32), username VARCHAR(32), password VARCHAR(32), admin TINYINT(1))";
+$result = $connection->query ($query);
+if(!$result) die ($connection->error);
+
+$query = "CREATE TABLE viruseTb (name VARCHAR(32), seq VARCHAR(20))";
+$result = $connection->query($query);
+if(!$result) die($connection->error);
+
+
+$salt1 = "Hacking";
+$salt2 = "Duo";
+
+$frstn = "Maryam";
+$lstn = "Mostafavi";
+$user = "GrappaShots";
+$pass = "ILove174";
+
+$token = hash('ripemd128', "$usr$pass$usr2");
+
+add_user($connection, $frstn, $lstn, $user, $token, 1);
+
+$frstn = "Samantha";
+$lstn = "Jaime";
+$user = "ILoveToHack";
+$pass = "ILove174Too";
+
+$token = hash('ripemd128', $frstn, $lstn, $user, $token, 0);
+
+function add_user($connection, $fn, $ln, $un, $pass, $isAdmin) {
+    $query = "INSERT INTO users VALUES('$fn', '$ln', '$un', '$pass', $isAdmin)";
+    $result = $connection->query($query);
+    if(!$result) die($conn->error);
+}
+
