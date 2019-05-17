@@ -133,7 +133,7 @@
 		}
 
 
-		if ($result = $conn->prepare("INSERT INTO virusTb(name, signature) VALUES(?,?,?,?)")) 
+		if ($result = $conn->prepare("INSERT INTO adminvirusTb(name, signature) VALUES(?,?,?,?)")) 
 		{ 
 			$result->bind_param('xxxx', $name, $sig); 
 			$result->execute(); 
