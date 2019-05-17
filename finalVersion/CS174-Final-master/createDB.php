@@ -7,9 +7,15 @@ $query = "CREATE TABLE userTb (username VARCHAR(32), password VARCHAR(32))";
 $result = $connection->query ($query);
 if(!$result) die ($connection->error);
 
-$query = "CREATE TABLE virusTb (name VARCHAR(32), sig VARCHAR(20))";
+$query = "CREATE TABLE adminvirusTb (name VARCHAR(32), sig VARCHAR(20))";
 $result = $connection->query($query);
 if(!$result) die($connection->error);
+
+
+$query = "CREATE TABLE uservirusTb (name VARCHAR(32), sig VARCHAR(20))";
+$result = $connection->query($query);
+if(!$result) die($connection->error);
+
 
 
 $salt1 = "Hacking";
