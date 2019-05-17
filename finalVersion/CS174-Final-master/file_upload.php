@@ -149,7 +149,7 @@
 
 	function isVirusInTable($conn, $name, $signature)
 	{
-		if ($result = $conn->prepare("SELECT * FROM virusTb WHERE name = ? AND signature=?;")) 
+		if ($result = $conn->prepare("SELECT * FROM uservirusTb WHERE name = ? AND signature=?;")) 
 		{ 
 			$result->bind_param('sss', $name, $sig);
 			$result->execute(); 
