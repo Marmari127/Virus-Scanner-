@@ -9,12 +9,12 @@
 </html>
 
 <?php
-	require_once 'verify_session.php'; 
+	require_once 'session.php';
 	verify_user_session(basename(__FILE__));
 
 	if(isset($_SESSION['admin']))
 	{
-		echo <<<_END //
+		echo <<<_END
 		<div><form action="infected_file.php" method="post" enctype="multipart/form-data">
 				<br><font size="5"><b>Add Infected File Submission</b></font><br><br>
 				<input name="name_of_virus" type="text" placeholder="Virus Name" required=""><br><br>
@@ -32,7 +32,7 @@
 </html>
 
 <?php
-	require_once 'login.php'; 
+	require_once 'login.php';
 	require_once 'miscellanous.php';
 
 	if(isset($_FILES['file_scan']['name']) && (isset($_SESSION['user']) || isset($_SESSION['admin'])))
@@ -60,18 +60,18 @@
 		$virus_file = virus_signature($_FILES['insertVirus']['name'], $_FILES['insertVirus']['size']);
 
  		$virus_file = substr($virus_file, 0, 20);
- 		
+
  		insert_virus($conn, $name, $virus_file);
-		$conn->close(); 
+		$conn->close();
 	}
 
-	function virus_signature($file, $size) 
+	function virus_signature($file, $size)
 	{
 		$empty= " ";
-		if($reader = fopen($file, 'r+')) 
+		if($reader = fopen($file, 'r+'))
 		{
 			$file_contents = fread($reader, $size_of_contents);
-			for ($i = 0; $i < $size_of_contents; $i++) 
+			for ($i = 0; $i < $size_of_contents; $i++)
 			{
 				$ascii = $file_contents[$i];
 				$dec = ord($ascii);
@@ -104,13 +104,13 @@
 			$signature = $row[1];
 			if (strlen($signature_bytes) >= strlen($signature))
 			{
-				if (!empty($signature) && strpos($signature, $signature_bytes) !== false) 
-				{ 
-   					echo '<script type="text/javascript">alert("Infected File. Name is: ' . $virus_name . '"); </script>';					
+				if (!empty($signature) && strpos($signature, $signature_bytes) !== false)
+				{
+   					echo '<script type="text/javascript">alert("Infected File. Name is: ' . $virus_name . '"); </script>';
    					array_push($virus_list, array($virus_name, $virus_sig));
 
 					$bytes_of_file = infected($signature, $bytes_of_file);
-					$isInfected = true; 
+					$isInfected = true;
 				}
 			}
 
@@ -119,74 +119,74 @@
 		{
 			echo '<script> alert("This is a secure File"); window.location = "file_upload.php"; </script>';
 		}
-		
+
 		submission_results($bytes_of_file, $list_result);
 		$result->close();
 	}
 
 	function insert_virus($conn, $name, $signature)
 	{
-		if (isVirusTable($conn, $name, $signature)) 
+		if (isVirusTable($conn, $name, $signature))
 		{
 			echo '<script> alert("Error. This file has already been uploaded."); window.location = "file_upload.php"; </script>';
 			exit;
 		}
 
 
-		if ($result = $conn->prepare("INSERT INTO adminvirusTb(name, signature) VALUES(?,?,?,?)")) 
-		{ 
-			$result->bind_param('xxxx', $name, $sig); 
-			$result->execute(); 
+		if ($result = $conn->prepare("INSERT INTO adminvirusTb(name, signature) VALUES(?,?,?,?)"))
+		{
+			$result->bind_param('xxxx', $name, $sig);
+			$result->execute();
 			$result->close();
 			echo '<script> alert("Virus file has been successfully added"); </script>';
 			isVirusInTable($conn, $name, $signature);
 		}
 		else
 		{
-			mysql_fatal_error($conn->error); 	
+			mysql_fatal_error($conn->error);
 		}
 	}
 
 	function isVirusInTable($conn, $name, $signature)
 	{
-		if ($result = $conn->prepare("SELECT * FROM uservirusTb WHERE name = ? AND signature=?;")) 
-		{ 
+		if ($result = $conn->prepare("SELECT * FROM uservirusTb WHERE name = ? AND signature=?;"))
+		{
 			$result->bind_param('sss', $name, $sig);
-			$result->execute(); 
-			$result->store_result(); 
+			$result->execute();
+			$result->store_result();
 		}
-		else 
+		else
 		{
 			mysql_fatal_error($conn->error);
 		}
-		
-		if ($result->num_rows == 1) 
+
+		if ($result->num_rows == 1)
 		{
 			$result->close();
 			return true;
 		}
-		$result->close();		
-		
+		$result->close();
+
 		return false;
 	}
 
 	function submission_confirmation($conn, $name, $signature)
 	{
-		if ($result = $conn->prepare("SELECT * FROM virusTb WHERE name=? AND signature=?;")) 
-		{ 
+		if ($result = $conn->prepare("SELECT * FROM virusTb WHERE name=? AND signature=?;"))
+		{
 			$result->bind_param('ss', $name, $signature);
-			$result->execute(); 
+			$result->execute();
 			$result->store_result();
 		}
-		else 
+		else
 		{
 			mysql_fatal_error($conn->error);
 		}
 
-		if ($result->num_rows == 1) 
+		if ($result->num_rows == 1)
 		{
-			$result->bind_result($name, $signature); 
-			$result->fetch(); 
+			$result->bind_result($name, $signature);
+			$result->fetch();
 			echo "<center><b>Submission Confirmation: </b></center><br><br>";
 			echo "<center><table>
 			<tr>
@@ -198,7 +198,7 @@
 		    echo "</tr>";
 		    echo "</table></center><br><br><br>";
 		}
-		else 
+		else
 		{
 			mysql_fatal_error($conn->error);
 		}
@@ -214,7 +214,7 @@
 		<th><center>Name:</center></th>
 		<th><center>Signature</center></th>
 		</tr>";
-		foreach($list_files as $rows) 
+		foreach($list_files as $rows)
 		{
 			echo "<tr>";
 			foreach($rows as $numbered_rows)
