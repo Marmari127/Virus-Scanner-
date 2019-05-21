@@ -9,7 +9,7 @@
 	    <input name="lastName"  placeholder="Last Name"  type="text" maxlength="128" required />
 			<input name="email"     placeholder="Email"      type="email"    maxlength="128" required/>
 			<input name="password"  placeholder="Password"   type="password" maxlength="128" required/>
-			<button type="submit" formaction="account.php" value="Submit">Submit</button>
+			<button type="submit" formaction="create_account.php" value="Submit">Submit</button>
 		</form>
 	</body>
 </html>
