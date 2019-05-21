@@ -15,7 +15,7 @@
 	if(isset($_SESSION['admin']))
 	{
 		echo <<<_END
-		<div><form action="infected_file.php" method="post" enctype="multipart/form-data">
+		<div><form action="file_upload.php" method="post" enctype="multipart/form-data">
 				<br><font size="5"><b>Add Infected File Submission</b></font><br><br>
 				<input name="name_of_virus" type="text" placeholder="Virus Name" required=""><br><br>
 				<input name="insertVirus"  type="file" required=""/>
