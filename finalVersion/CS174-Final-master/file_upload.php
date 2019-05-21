@@ -1,7 +1,7 @@
 <html>
 <title>Infected File</title>
 <center>
-	<div><form action="infected_file.php" method="post" enctype="multipart/form-data">
+	<div><form action="file_upload.php" method="post" enctype="multipart/form-data">
 		<br><font size="5"><b>Upload A Possible Virus File Below</b></font><br><br><br><br>
 		<input name="file_scan" type="file" required=""/>
 		<button type="submit">File Check</button><br><br>
