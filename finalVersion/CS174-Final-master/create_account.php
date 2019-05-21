@@ -23,7 +23,7 @@
 
 	if(isset($_POST['email']) && isset($_POST['password']))
 	{
-		$conn = new mysqli($hn, $un, $db);
+		$conn = new mysqli($hn, $un, $pw);
 		if ($conn->connect_error) mysql_fatal_error($conn->connect_error);
 
 		$usnm = mysql_fix_string($conn, $_POST['email']);
