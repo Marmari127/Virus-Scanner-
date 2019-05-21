@@ -30,7 +30,7 @@
 			$input -> execute();
 			$input -> store_result();
 		}
-		else 
+		else
 		{
 			mysql_fatal_error($conn->error);
 		}
@@ -50,7 +50,7 @@
 				$_SESSION['user'] = 1;
 
 				$_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
-				$_SESSION['check'] = hash('ripemd128', $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);	
+				$_SESSION['check'] = hash('ripemd128', $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
 				echo '<script> alert("Welcome, you are now logged in as '. $un . '"); window.location = "infected_file.php"; </script>';
 			}
 
@@ -59,7 +59,7 @@
 				echo '<script> alert("Invalid Login Credentials. Please Try Again."); window.location = "authenticate_users.php" </script>';
 			}
 		}
-		else 
+		else
 		{
 			return false;
 		}
@@ -75,7 +75,7 @@
 			$input -> execute();
 			$input -> store_result();
 		}
-		else 
+		else
 		{
 			mysql_fatal_error($conn->error);
 		}
@@ -95,8 +95,8 @@
 				$_SESSION['user'] = 1;
 
 				$_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
-				$_SESSION['check'] = hash('ripemd128', $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);	
-				echo '<script> alert("Welcome Admin, you are now logged in as '. $un . '"); window.location = "infected_file.php"; </script>';
+				$_SESSION['check'] = hash('ripemd128', $_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
+				echo '<script> alert("Welcome Admin, you are now logged in as '. $un . '"); window.location = "file_upload.php"; </script>';
 			}
 
 			else
@@ -104,7 +104,7 @@
 				echo '<script> alert("Invalid Login Credentials. Please Try Again."); window.location = "authenticate_users.php" </script>';
 			}
 		}
-		else 
+		else
 		{
 			return false;
 		}
