@@ -29,11 +29,11 @@ add_user($connection, $user1, $pass);
 
 $user2 = "ILoveToHack";
 $pass = "ILove174Too";
-$token = hash('ripemd128', $user, $token);
+$token = hash('ripemd128', "$salt1$pass$salt2");
 
 add_user($connection, $user2, $pass);
 
-function add_user($connection, $un, $pass) 
+function add_user($connection, $un, $pass)
 {
     $query = "INSERT INTO users VALUES('$un', '$pass')";
     $result = $connection->query($query);
