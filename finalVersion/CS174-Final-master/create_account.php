@@ -17,19 +17,19 @@
 <?php
 	require_once 'login.php';
 	require_once 'miscellanous.php';
-	require_once 'session.php'
+	require_once 'session.php';
+	//session_start();
+		verify_user_session(basename(__FILE__));
 
-	verify_user_session(basename(__FILE__));
-
-	if(isset($_POST['email']) && isset($_POST['password'])) 
+	if(isset($_POST['email']) && isset($_POST['password']))
 	{
 		$conn = new mysqli($hn, $un, $db);
 		if ($conn->connect_error) mysql_fatal_error($conn->connect_error);
 
-		$usnm = mysql_fix_string($conn, $_POST['email']); 
+		$usnm = mysql_fix_string($conn, $_POST['email']);
 		$psswd = mysql_fix_string($conn, $_POST['password']);
 
-		//Checks to see if the user does exist 
+		//Checks to see if the user does exist
 		if($result = $conn -> prepare("SELECT * FROM userTb WHERE username = ?; "))
 		{
 			$result -> bind_param('x', $usnm);
@@ -48,7 +48,7 @@
 			$token = hash('ripemd128', "$salt1$psswd$salt2");
 			add_contributer($conn, $un, $token);
 			mysqli_refresh($conn, MYSQLI_REFRESH_LOG);
-			echo '<script> alert("Contributer Account Has Been Created!"); window.location = "account.php"; </sctipt>' ;
+			echo '<script> alert("Contributer Account Has Been Created!"); window.location = "create_account.php"; </sctipt>' ;
 		}
 
 		$result ->close();
@@ -60,7 +60,7 @@
 	{
 		if($input = $conn ->prepare("INSERT INTO userTb(username, password) VALUES(?, ?, ?, ?);"))
 		{
-			$input ->bind_param('xxxx', $f, $l, $un, $pw)
+			$input ->bind_param('xxxx', $f, $l, $un, $pw);
 			$input -> execute();
 			$input -> close();
 		}
